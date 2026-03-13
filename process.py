@@ -143,6 +143,12 @@ class DynastyDilutionSimulator:
 
     def plot_dilution_comparison(self, results_df):
         """Visualize the comparative dilution across degree limits."""
+        if results_df.empty:
+            print("No data to plot.")
+            return
+        if 'degree_limit' not in results_df.columns:
+            print("Column 'degree_limit' missing. Available columns:", results_df.columns.tolist())
+            return
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
         # Plot 1: Percentage of Seats Affected
@@ -177,7 +183,7 @@ if __name__ == "__main__":
     sim = DynastyDilutionSimulator("candidates.csv", "relationships.csv")
 
     # Run comparison for a specific province and year
-    province = "Batangas"
+    province = "Nueva Ecija"
     year = 2022
 
     # Compare degree limits 1 through 4 (and implicitly, status quo)
